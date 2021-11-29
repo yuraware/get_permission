@@ -1,7 +1,18 @@
 library get_permission;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+class GetPermission {}
+
+enum Permissions {
+  calendar,
+  camera,
+  contacts,
+  location,
+  locationWhenInUse,
+  locationAlways,
+  mediaLibrary,
+  microphone,
+  phone,
+  photos
 }
+
+class Permission {}
