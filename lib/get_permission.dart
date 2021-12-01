@@ -11,8 +11,37 @@ enum Permissions {
   locationAlways,
   mediaLibrary,
   microphone,
-  phone,
-  photos
+  phoneAndroid,
+  photos,
+  photosWriteOnlyIOS,
+  remindersIOS,
+  sensors,
+  smsAndroid,
+  speech,
+  storage,
+  ignoreBatteryOptimizationsAndroid,
+  notification,
+  mediaLocation,
+  activityRecognitionAndroid,
+  bluetooth,
+  manageExternalStorageAndroid,
+  systemAlertWindowAndroid,
+  requestInstallPackageAndroid,
+  appTrackingTransparentcyIOS,
+  criticalAlertsIOS,
+  accessNotificationPolicyAndroid,
+  bluetoothScanAndroid,
+  bluetoothAdvertiseAndroid,
+  bluetoothConnectAndroid,
+  unknown,
+}
+
+enum Status {
+  denied,
+
+  restrictedIOS,
+  limitedIOS,
+  permanentlyDeniedAndroid,
 }
 
 class Permission {}
