@@ -1,6 +1,10 @@
 library get_permission;
 
-class GetPermission {}
+class GetPermission {
+  Future<Status> get status => Future.delayed(Duration.zero, () async {
+        return Status.granted;
+      });
+}
 
 enum Permissions {
   calendar,
@@ -38,6 +42,7 @@ enum Permissions {
 
 enum Status {
   denied,
+  granted,
 
   restrictedIOS,
   limitedIOS,
