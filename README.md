@@ -15,8 +15,9 @@ and the Flutter guide for
 Flutter package for permission handling
 
 ## Features
-
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- [ ] get async/sync statuses of permissions
+- [ ] handle permissions on iOS
+- [ ] handle permissions on Android
 
 #### Platforms
 - [ ] iOS
