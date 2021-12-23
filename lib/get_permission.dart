@@ -13,22 +13,27 @@ class GetPermission {
   Future<Status> get status => Future.delayed(Duration.zero, () async {
         return Status.granted;
       });
+
   Future<Status> checkStatus(Permissions permission) async {
     final status = await _channel.invokeMethod('checkPermission', permission);
-
     return status;
   }
+
+  Future<Availability> checkAvailability(Permissions permission) async {
+    final status = await _channel.invokeMethod('checkAvailability', permission);
+    return status;
+  } 
 }
 
 enum Permissions {
-  calendar,
   camera,
+  microphone,
   contacts,
+  calendar,
   location,
   locationWhenInUse,
   locationAlways,
   mediaLibrary,
-  microphone,
   phoneAndroid,
   photos,
   photosWriteOnlyIOS,
@@ -56,11 +61,17 @@ enum Permissions {
 
 enum Status {
   denied,
-  granted,
+  authorized,
 
   restrictedIOS,
   limitedIOS,
   permanentlyDeniedAndroid,
+}
+
+enum Availability {
+  enabled,
+  disabled,
+  unsupported,
 }
 
 class Permission {}
