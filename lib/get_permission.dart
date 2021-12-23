@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/services.dart';
@@ -14,6 +13,11 @@ class GetPermission {
   Future<Status> get status => Future.delayed(Duration.zero, () async {
         return Status.granted;
       });
+  Future<Status> checkStatus(Permissions permission) async {
+    final status = await _channel.invokeMethod('checkPermission', permission);
+
+    return status;
+  }
 }
 
 enum Permissions {
