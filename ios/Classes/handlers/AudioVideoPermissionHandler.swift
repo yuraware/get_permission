@@ -14,7 +14,7 @@ class AudioVideoHandler: HandlerProtocol {
     }
     
     func checkAvailability(_ type: PermissionType, completion: (PermissionAvailability) -> ()) {
-         completion(PermissionAvailability.enabled)
+         completion(PermissionAvailability.nonApplicable)
     }
     
     func request(_ type: PermissionType, completion: @escaping (PermissionStatus) -> ()) {

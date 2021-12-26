@@ -24,6 +24,6 @@ enum PermissionStatus: Int {
 enum PermissionAvailability: Int {
     case enabled = 0
     case disabled
-    case unsupported
+    case nonApplicable
 }
 
