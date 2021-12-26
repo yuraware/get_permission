@@ -10,19 +10,23 @@ class GetPermission {
     return version;
   }
 
-  Future<Status> get status => Future.delayed(Duration.zero, () async {
-        return Status.granted;
-      });
-
-  Future<Status> checkStatus(Permissions permission) async {
-    final status = await _channel.invokeMethod('checkPermission', permission);
-    return status;
+  static Future<Status> checkStatus(Permissions permission) async {
+    final status =
+        await _channel.invokeMethod('checkPermission', permission.index);
+    return StatusParser.statusFrom(status);
   }
 
-  Future<Availability> checkAvailability(Permissions permission) async {
-    final status = await _channel.invokeMethod('checkAvailability', permission);
-    return status;
-  } 
+  static Future<Availability> checkAvailability(Permissions permission) async {
+    final status =
+        await _channel.invokeMethod('checkAvailability', permission.index);
+    return AvailabilityParser.statusFrom(status);
+  }
+
+  static Future<Status> request(Permissions permission) async {
+    final status =
+        await _channel.invokeMethod('requestPermission', permission.index);
+    return StatusParser.statusFrom(status);
+  }
 }
 
 enum Permissions {
@@ -62,16 +66,37 @@ enum Permissions {
 enum Status {
   denied,
   authorized,
-
   restrictedIOS,
   limitedIOS,
   permanentlyDeniedAndroid,
 }
 
+extension StatusParser on Status {
+  static Status statusFrom(int value) {
+    return [
+      Status.denied,
+      Status.authorized,
+      Status.restrictedIOS,
+      Status.limitedIOS,
+      Status.permanentlyDeniedAndroid,
+    ][value];
+  }
+}
+
 enum Availability {
   enabled,
   disabled,
-  unsupported,
+  nonApplicable,
+}
+
+extension AvailabilityParser on Availability {
+  static Availability statusFrom(int value) {
+    return [
+      Availability.enabled,
+      Availability.disabled,
+      Availability.nonApplicable,
+    ][value];
+  }
 }
 
 class Permission {}
