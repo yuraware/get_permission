@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-
+import 'package:get_permission/permission.dart';
 class GetPermission {
   static const MethodChannel _channel = MethodChannel('get_permission');
 
@@ -29,47 +29,6 @@ class GetPermission {
   }
 }
 
-enum Permissions {
-  camera,
-  microphone,
-  contacts,
-  calendar,
-  location,
-  locationWhenInUse,
-  locationAlways,
-  mediaLibrary,
-  phoneAndroid,
-  photos,
-  photosWriteOnlyIOS,
-  remindersIOS,
-  sensors,
-  smsAndroid,
-  speech,
-  storage,
-  ignoreBatteryOptimizationsAndroid,
-  notification,
-  mediaLocation,
-  activityRecognitionAndroid,
-  bluetooth,
-  manageExternalStorageAndroid,
-  systemAlertWindowAndroid,
-  requestInstallPackageAndroid,
-  appTrackingTransparentcyIOS,
-  criticalAlertsIOS,
-  accessNotificationPolicyAndroid,
-  bluetoothScanAndroid,
-  bluetoothAdvertiseAndroid,
-  bluetoothConnectAndroid,
-  unknown,
-}
-
-enum Status {
-  denied,
-  authorized,
-  restrictedIOS,
-  limitedIOS,
-  permanentlyDeniedAndroid,
-}
 
 extension StatusParser on Status {
   static Status statusFrom(int value) {
@@ -82,21 +41,3 @@ extension StatusParser on Status {
     ][value];
   }
 }
-
-enum Availability {
-  enabled,
-  disabled,
-  nonApplicable,
-}
-
-extension AvailabilityParser on Availability {
-  static Availability statusFrom(int value) {
-    return [
-      Availability.enabled,
-      Availability.disabled,
-      Availability.nonApplicable,
-    ][value];
-  }
-}
-
-class Permission {}
