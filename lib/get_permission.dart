@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:get_permission/permission.dart';
-class GetPermission {
+
+class GetPermission extends Permission {
   static const MethodChannel _channel = MethodChannel('get_permission');
 
   static Future<String?> get platformVersion async {
@@ -28,7 +29,6 @@ class GetPermission {
     return StatusParser.statusFrom(status);
   }
 }
-
 
 extension StatusParser on Status {
   static Status statusFrom(int value) {
