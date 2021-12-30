@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:get_permission/get_permission.dart';
+import 'package:get_permission/permission.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,16 +27,27 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-
     final cameraStatus = await GetPermission.checkStatus(Permissions.camera);
     debugPrint('Camera permission status $cameraStatus');
 
-    final cameraAvailability = await GetPermission.checkStatus(Permissions.camera);
+    final cameraAvailability =
+        await GetPermission.checkAvailability(Permissions.camera);
     debugPrint('Camera permission availability status $cameraAvailability');
 
-    final requestStatus = await GetPermission.request(Permissions.camera);
-    debugPrint('Camera request permission status $requestStatus');
+    final requestCameraStatus = await GetPermission.request(Permissions.camera);
+    debugPrint('Camera request permission status $requestCameraStatus');
 
+    final contactsStatus =
+        await GetPermission.checkStatus(Permissions.contacts);
+    debugPrint('Contacts permission status $contactsStatus');
+
+    final contactsAvailability =
+        await GetPermission.checkAvailability(Permissions.contacts);
+    debugPrint('Contacts permission availability status $contactsAvailability');
+
+    final requestContactsStatus =
+        await GetPermission.request(Permissions.contacts);
+    debugPrint('Contacts request permission status $requestContactsStatus');
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling

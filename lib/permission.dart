@@ -72,4 +72,3 @@ extension AvailabilityParser on Availability {
   }
 }
 
-class Permission {}
