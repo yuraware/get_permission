@@ -24,6 +24,10 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Camera usage description</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Microphone usage description</string>
+    <key>NSContactsUsageDescription</key>
+    <string>Contacts usage description</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
