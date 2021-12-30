@@ -8,6 +8,10 @@
 import Foundation
 import AVFoundation
 
+// Use reference https://developer.apple.com/documentation/avfoundation/cameras_and_media_capture/requesting_authorization_for_media_capture_on_ios
+// Remember to add NSCameraUsageDescription, NSMicrophoneUsageDescription keys
+// to your app’s Info.plist file
+//
 class AudioVideoHandler: HandlerProtocol {
     func checkStatus(_ type: PermissionType) -> PermissionStatus {
         return status(for: avMediaType(from: type))

@@ -59,7 +59,7 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
         case .camera, .microphone:
             return AudioVideoHandler()
         case .contacts:
-            fatalError()
+            return ContactsHandler()
         }
     }
 }
