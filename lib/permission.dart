@@ -1,6 +1,6 @@
 import 'dart:async';
 
-abstract class Permission {
+abstract class PermissionHandler {
   static Future<Status> checkStatus(Permissions permission) async {
     throw UnimplementedError('Not implemented');
   }

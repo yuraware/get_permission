@@ -17,8 +17,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -27,26 +25,28 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    final cameraStatus = await GetPermission.checkStatus(Permissions.camera);
+    final cameraStatus =
+        await Permissions.camera.checkStatus(Permissions.camera);
     debugPrint('Camera permission status $cameraStatus');
 
     final cameraAvailability =
-        await GetPermission.checkAvailability(Permissions.camera);
+        await Permissions.camera.checkAvailability(Permissions.camera);
     debugPrint('Camera permission availability status $cameraAvailability');
 
-    final requestCameraStatus = await GetPermission.request(Permissions.camera);
+    final requestCameraStatus =
+        await Permissions.camera.request(Permissions.camera);
     debugPrint('Camera request permission status $requestCameraStatus');
 
     final contactsStatus =
-        await GetPermission.checkStatus(Permissions.contacts);
+        await Permissions.contacts.checkStatus(Permissions.contacts);
     debugPrint('Contacts permission status $contactsStatus');
 
     final contactsAvailability =
-        await GetPermission.checkAvailability(Permissions.contacts);
+        await Permissions.contacts.checkAvailability(Permissions.contacts);
     debugPrint('Contacts permission availability status $contactsAvailability');
 
     final requestContactsStatus =
-        await GetPermission.request(Permissions.contacts);
+        await Permissions.contacts.request(Permissions.contacts);
     debugPrint('Contacts request permission status $requestContactsStatus');
 
     // If the widget was removed from the tree while the asynchronous platform
@@ -62,8 +62,8 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+        body: const Center(
+          child: Text('Get permissions access\n'),
         ),
       ),
     );
