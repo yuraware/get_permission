@@ -3,13 +3,8 @@ import 'dart:async';
 import 'package:flutter/services.dart';
 import 'package:get_permission/permission.dart';
 
-class GetPermission extends Permission {
+class GetPermission extends PermissionHandler {
   static const MethodChannel _channel = MethodChannel('get_permission');
-
-  static Future<String?> get platformVersion async {
-    final String? version = await _channel.invokeMethod('getPlatformVersion');
-    return version;
-  }
 
   static Future<Status> checkStatus(Permissions permission) async {
     final status =
@@ -39,5 +34,19 @@ extension StatusParser on Status {
       Status.limitedIOS,
       Status.permanentlyDeniedAndroid,
     ][value];
+  }
+}
+
+extension GetPermissionHandler on Permissions {
+  Future<Status> checkStatus(Permissions permission) async {
+    return GetPermission.checkStatus(permission);
+  }
+
+  Future<Availability> checkAvailability(Permissions permission) async {
+    return GetPermission.checkAvailability(permission);
+  }
+
+  Future<Status> request(Permissions permission) async {
+    return GetPermission.request(permission);
   }
 }
