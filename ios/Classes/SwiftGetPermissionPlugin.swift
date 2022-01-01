@@ -31,6 +31,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             request(type: type) { status in
                 result(status)
             }
+        case "requestPermissions":
+            fatalError("Not implemented")
         default:
             fatalError("Not implemented method channel: \(call.method)")
         }

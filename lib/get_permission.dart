@@ -23,6 +23,15 @@ class GetPermission extends PermissionHandler {
         await _channel.invokeMethod('requestPermission', permission.index);
     return StatusParser.statusFrom(status);
   }
+
+  static Future<Map<Permissions, Status>> requestPermissions(
+      List<Permissions> permissions) async {
+    final permissionIndices = permissions.map((p) => p.index).toList();
+    final statuses =
+        await _channel.invokeMethod('requestPermissions', permissionIndices);
+    return statuses.map((key, val) => MapEntry<Permissions, Status>(
+        Permissions.values[key], StatusParser.statusFrom(val)));
+  }
 }
 
 extension StatusParser on Status {
