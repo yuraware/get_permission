@@ -1,6 +1,13 @@
 import Flutter
 import UIKit
 
+enum Methods: String, CaseIterable {
+   case checkPermission = "checkPermission"
+   case checkAvailability = "checkAvailability"
+   case requestPermission = "requestPermission"
+   case requestPermissions = "requestPermissions"
+}
+
 public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "get_permission", binaryMessenger: registrar.messenger())
@@ -12,29 +19,63 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
 
         print("[GetPermission] Received call method: \(call.method), arguments: \(call.arguments ?? "(empty)")")
         
+        switch (call.method) {
+        case Methods.checkPermission.rawValue,
+            Methods.checkAvailability.rawValue,
+            Methods.requestPermission.rawValue:
+            getPermission(from: call, result: result)
+            break
+        case Methods.requestPermissions.rawValue:
+            getPermissions(from: call, result: result)
+            break
+        default:
+            fatalError("Not implemented method channel: \(call.method)")
+        }
+        
+    }
+    
+    private func getPermission(from call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let permission = call.arguments as? Int,
               let type = PermissionType(rawValue: permission) else {
                   print("Integer argument should be passed to the plugin")
                   return;
         }
-
+        
         switch (call.method) {
-        case "checkPermission":
+        case Methods.checkPermission.rawValue:
             checkPermission(type: type) { status in
                 result(status)
             }
-        case "checkAvailability":
+        case Methods.checkAvailability.rawValue:
             checkAvailability(type: type) { availability in
                 result(availability)
             }
-        case "requestPermission":
+        case Methods.requestPermission.rawValue:
             request(type: type) { status in
                 result(status)
             }
-        case "requestPermissions":
-            fatalError("Not implemented")
         default:
             fatalError("Not implemented method channel: \(call.method)")
+        }
+    }
+    
+    private func getPermissions(from call: FlutterMethodCall, result: @escaping FlutterResult) {
+        guard let permissionsIndices = call.arguments as? [Int] else {
+            print("Integers array argument should be passed to the plugin")
+            return;
+        }
+        
+        let permissions = permissionsIndices.compactMap { PermissionType(rawValue: $0) }
+        
+        var results = [Int: Int]()
+        for permissionType in permissions {
+            let handler = handler(for: permissionType)
+            handler.request(permissionType) { status in
+                results[permissionType.rawValue] = status.rawValue
+                if results.values.count == permissions.count {
+                    result(results)
+                }
+            }
         }
     }
 
