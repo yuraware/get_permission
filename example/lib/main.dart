@@ -37,17 +37,10 @@ class _MyAppState extends State<MyApp> {
         await Permissions.camera.request(Permissions.camera);
     debugPrint('Camera request permission status $requestCameraStatus');
 
-    final contactsStatus =
-        await Permissions.contacts.checkStatus(Permissions.contacts);
-    debugPrint('Contacts permission status $contactsStatus');
-
-    final contactsAvailability =
-        await Permissions.contacts.checkAvailability(Permissions.contacts);
-    debugPrint('Contacts permission availability status $contactsAvailability');
-
-    final requestContactsStatus =
-        await Permissions.contacts.request(Permissions.contacts);
-    debugPrint('Contacts request permission status $requestContactsStatus');
+    final statuses = await [Permissions.microphone, Permissions.contacts].request();
+    for (var k in statuses.keys) {
+      debugPrint('Permission - $k, status: ${statuses[k]}');
+    }
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling

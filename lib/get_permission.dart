@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get_permission/permission.dart';
 
@@ -29,8 +30,11 @@ class GetPermission extends PermissionHandler {
     final permissionIndices = permissions.map((p) => p.index).toList();
     final statuses =
         await _channel.invokeMethod('requestPermissions', permissionIndices);
-    return statuses.map((key, val) => MapEntry<Permissions, Status>(
-        Permissions.values[key], StatusParser.statusFrom(val)));
+
+    return Map<int, int>.from(statuses).map((key, val) {
+      return MapEntry<Permissions, Status>(
+          Permissions.values[key], StatusParser.statusFrom(val));
+    });
   }
 }
 
@@ -57,5 +61,11 @@ extension GetPermissionHandler on Permissions {
 
   Future<Status> request(Permissions permission) async {
     return GetPermission.request(permission);
+  }
+}
+
+extension GetPermissionsHandler on List<Permissions> {
+  Future<Map<Permissions, Status>> request() async {
+    return GetPermission.requestPermissions(this);
   }
 }
