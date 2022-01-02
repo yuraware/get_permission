@@ -18,7 +18,7 @@ enum PermissionStatus: Int {
     case authorized
     case restricted
     case limited
-    case permanentlyDenied
+    case permanentlyDenied // Not used on iOS
 }
 
 enum PermissionAvailability: Int {
