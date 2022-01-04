@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get_permission/permission.dart';
 
-class GetPermission extends PermissionHandler {
+class _GetPermission extends PermissionHandler {
   static const MethodChannel _channel = MethodChannel('get_permission');
 
   static Future<Status> checkStatus(Permissions permission) async {
@@ -51,21 +51,29 @@ extension StatusParser on Status {
 }
 
 extension GetPermissionHandler on Permissions {
+  /// Check permission status
+  ///
   Future<Status> checkStatus(Permissions permission) async {
-    return GetPermission.checkStatus(permission);
+    return _GetPermission.checkStatus(permission);
   }
 
+  /// Check permission availability on the platform
+  ///
   Future<Availability> checkAvailability(Permissions permission) async {
-    return GetPermission.checkAvailability(permission);
+    return _GetPermission.checkAvailability(permission);
   }
 
+  /// Request a single permission
+  ///
   Future<Status> request(Permissions permission) async {
-    return GetPermission.request(permission);
+    return _GetPermission.request(permission);
   }
 }
 
 extension GetPermissionsHandler on List<Permissions> {
+  /// Request multiple permissions
+  ///
   Future<Map<Permissions, Status>> request() async {
-    return GetPermission.requestPermissions(this);
+    return _GetPermission.requestPermissions(this);
   }
 }
