@@ -29,7 +29,7 @@ class AudioVideoHandler: HandlerProtocol {
         }
         
         AVCaptureDevice.requestAccess(for: avMediaType(from: type)) { authorized in
-            let completionStatus: PermissionStatus = authorized ? .authorized : .permanentlyDenied
+            let completionStatus: PermissionStatus = authorized ? .authorized : .denied
             completion(completionStatus)
         }
     }
@@ -38,12 +38,10 @@ class AudioVideoHandler: HandlerProtocol {
         switch AVCaptureDevice.authorizationStatus(for: type) {
         case .authorized:
             return .authorized
-        case .notDetermined:
+        case .notDetermined, .denied:
             return .denied
         case .restricted:
             return .restricted
-        case .denied:
-            return .permanentlyDenied
         @unknown default:
             fatalError()
         }
