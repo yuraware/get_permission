@@ -82,7 +82,14 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
                 }
             }
         case Methods.checkPermissions.rawValue:
-            fatalError("Not implemented method channel: \(call.method)")
+            var results = [Int: Int]()
+            for permissionType in permissions {
+                let handler = handler(for: permissionType)
+                results[permissionType.rawValue] = handler.checkStatus(permissionType).rawValue
+                if results.values.count == permissions.count {
+                    result(results)
+                }
+            }
         default:
             fatalError("Not implemented method channel: \(call.method)")
         }
