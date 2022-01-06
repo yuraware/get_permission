@@ -6,6 +6,7 @@ enum Methods: String, CaseIterable {
    case checkAvailability = "checkAvailability"
    case requestPermission = "requestPermission"
    case requestPermissions = "requestPermissions"
+   case checkPermissions = "checkPermissions"
 }
 
 public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
@@ -25,7 +26,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             Methods.requestPermission.rawValue:
             getPermission(from: call, result: result)
             break
-        case Methods.requestPermissions.rawValue:
+        case Methods.requestPermissions.rawValue,
+            Methods.checkPermissions.rawValue:
             getPermissions(from: call, result: result)
             break
         default:
@@ -67,15 +69,22 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
         
         let permissions = permissionsIndices.compactMap { PermissionType(rawValue: $0) }
         
-        var results = [Int: Int]()
-        for permissionType in permissions {
-            let handler = handler(for: permissionType)
-            handler.request(permissionType) { status in
-                results[permissionType.rawValue] = status.rawValue
-                if results.values.count == permissions.count {
-                    result(results)
+        switch (call.method) {
+        case Methods.requestPermissions.rawValue:
+            var results = [Int: Int]()
+            for permissionType in permissions {
+                let handler = handler(for: permissionType)
+                handler.request(permissionType) { status in
+                    results[permissionType.rawValue] = status.rawValue
+                    if results.values.count == permissions.count {
+                        result(results)
+                    }
                 }
             }
+        case Methods.checkPermissions.rawValue:
+            fatalError("Not implemented method channel: \(call.method)")
+        default:
+            fatalError("Not implemented method channel: \(call.method)")
         }
     }
 
