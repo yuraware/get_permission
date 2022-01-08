@@ -11,6 +11,7 @@ enum PermissionType: Int {
     case camera = 0
     case microphone
     case contacts
+    case notification
 }
 
 enum PermissionStatus: Int {

@@ -119,6 +119,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return AudioVideoHandler()
         case .contacts:
             return ContactsHandler()
+        case .notification:
+            return NotificationsHandler()
         }
     }
 }
