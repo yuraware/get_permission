@@ -38,13 +38,13 @@ class _MyAppState extends State<MyApp> {
     debugPrint('Camera request permission status $requestCameraStatus');
 
     final requestStatuses =
-        await [Permissions.microphone, Permissions.contacts].request();
+        await [Permissions.microphone, Permissions.contacts, Permissions.notification].request();
     for (var k in requestStatuses.keys) {
       debugPrint('Request permission - $k, status: ${requestStatuses[k]}');
     }
 
     final statuses =
-        await [Permissions.microphone, Permissions.contacts].checkStatuses();
+        await [Permissions.microphone, Permissions.contacts, Permissions.notification].checkStatuses();
     for (var k in statuses.keys) {
       debugPrint('Permission - $k, status: ${statuses[k]}');
     }

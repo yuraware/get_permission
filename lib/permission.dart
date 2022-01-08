@@ -18,6 +18,7 @@ enum Permissions {
   camera,
   microphone,
   contacts,
+  notification,
   calendar,
   location,
   locationWhenInUse,
@@ -32,7 +33,6 @@ enum Permissions {
   speech,
   storage,
   ignoreBatteryOptimizationsAndroid,
-  notification,
   mediaLocation,
   activityRecognitionAndroid,
   bluetooth,
@@ -71,4 +71,3 @@ extension AvailabilityParser on Availability {
     ][value];
   }
 }
-

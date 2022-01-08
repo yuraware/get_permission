@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:get_permission/permission.dart';
 
@@ -89,6 +88,8 @@ extension GetPermissionsHandler on List<Permissions> {
     return _GetPermission.requestPermissions(this);
   }
 
+  /// Check status of multiple permissions
+  ///
   Future<Map<Permissions, Status>> checkStatuses() async {
     return _GetPermission.checkStatuses(this);
   }
