@@ -121,6 +121,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return ContactsHandler()
         case .notification:
             return NotificationsHandler()
+        case .criticalAlert:
+            return CriticalAlertHandler()
         }
     }
 }

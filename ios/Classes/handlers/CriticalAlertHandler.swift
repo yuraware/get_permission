@@ -1,17 +1,16 @@
 //
-//  NotificationPermissionHandler.swift
+//  CriticalAlertHandler.swift
 //  get_permission
 //
-//  Created by Yuri on 08.01.2022.
+//  Created by Yuri on 09.01.2022.
 //
 
 import Foundation
-import UserNotifications
 
 // Use a reference https://developer.apple.com/documentation/usernotifications/asking_permission_to_use_notifications
 //
 //
-class NotificationsHandler: HandlerProtocol {
+class CriticalAlertHandler: HandlerProtocol {
     func checkStatus(_ type: PermissionType) -> PermissionStatus {
         return status()
     }
@@ -40,16 +39,19 @@ class NotificationsHandler: HandlerProtocol {
     }
     
     func status() -> PermissionStatus {
-        if #available(iOS 10.0, *) {
+        if #available(iOS 12.0, *) {
             let semaphore = DispatchSemaphore(value: 0)
             var status = PermissionStatus.denied
             let userNotificationCenter = UNUserNotificationCenter.current()
             userNotificationCenter.getNotificationSettings { (notificationSettings) in
-                switch notificationSettings.authorizationStatus {
-                case .authorized, .provisional, .ephemeral:
+                
+                switch notificationSettings.criticalAlertSetting {
+                case .enabled:
                     status = .authorized
-                case .denied, .notDetermined:
+                case .disabled:
                     status = .denied
+                case .notSupported:
+                    status = .notSupported
                 @unknown default:
                     fatalError("Not supported status")
                 }
@@ -59,12 +61,7 @@ class NotificationsHandler: HandlerProtocol {
             return status
             
         } else {
-            let settings = UIApplication.shared.currentUserNotificationSettings
-            guard let settings = settings else {
-                return .denied
-            }
-
-            return settings.types.contains(.alert) ? .authorized : .denied
+            return .permanentlyDenied
         }
     }
 }
