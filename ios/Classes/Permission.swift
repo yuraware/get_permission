@@ -12,7 +12,15 @@ enum PermissionType: Int {
     case microphone
     case contacts
     case notification
-    case criticalAlert
+    case notificationOptions
+    case notificationOptionAlert
+    case notificationOptionBadge
+    case notificationOptionSound
+    case notificationOptionCarPlay
+    case notificationOptionCriticalAlert
+    case notificationOptionProvisional
+    case notificationOptionAnnouncement
+    case notificationOptionTimeSensitive
 }
 
 enum PermissionStatus: Int {
@@ -21,7 +29,7 @@ enum PermissionStatus: Int {
     case restricted
     case limited
     case permanentlyDenied // Not used on iOS
-    case notSupported // In case of OS version not supports it
+    case notSupported // In case of OS version does not supports permission
 }
 
 enum PermissionAvailability: Int {
