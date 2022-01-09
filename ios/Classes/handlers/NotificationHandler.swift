@@ -9,7 +9,7 @@ import Foundation
 import UserNotifications
 
 // Use a reference https://developer.apple.com/documentation/usernotifications/asking_permission_to_use_notifications
-//
+// Checks notifications status for options: alert, sound, badge
 //
 class NotificationsHandler: HandlerProtocol {
     func checkStatus(_ type: PermissionType) -> PermissionStatus {

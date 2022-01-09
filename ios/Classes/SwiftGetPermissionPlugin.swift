@@ -121,8 +121,58 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return ContactsHandler()
         case .notification:
             return NotificationsHandler()
-        case .criticalAlert:
-            return CriticalAlertHandler()
+        case .notificationOptionAlert:
+            if #available(iOS 10.0, *) {
+                return NotificationOptionHandler(options: .alert)
+            } else {
+                return NotificationNotSupportedHandler()
+            }
+        case .notificationOptionBadge:
+            if #available(iOS 10.0, *) {
+                return NotificationOptionHandler(options: .badge)
+            } else {
+                return NotificationNotSupportedHandler()
         }
+        case .notificationOptionSound:
+            if #available(iOS 10.0, *) {
+                return NotificationOptionHandler(options: .sound)
+            } else {
+                return NotificationNotSupportedHandler()
+        }
+        case .notificationOptionCarPlay:
+            if #available(iOS 10.0, *) {
+                return NotificationOptionHandler(options: .carPlay)
+            } else {
+                return NotificationNotSupportedHandler()
+        }
+        case .notificationOptionCriticalAlert:
+            if #available(iOS 12.0, *) {
+                return NotificationOptionHandler(options: .criticalAlert)
+            } else {
+                return NotificationNotSupportedHandler()
+        }
+        case .notificationOptionProvisional:
+            if #available(iOS 12.0, *) {
+                return NotificationOptionHandler(options: .provisional)
+            } else {
+                return NotificationNotSupportedHandler()
+        }
+        case .notificationOptionAnnouncement:
+            if #available(iOS 13.0, *) {
+                return NotificationOptionHandler(options: .announcement)
+            } else {
+                return NotificationNotSupportedHandler()
+        }
+        case .notificationOptionTimeSensitive:
+            if #available(iOS 15.0, *) {
+                return NotificationOptionHandler(options: .timeSensitive)
+            } else {
+                return NotificationNotSupportedHandler()
+        }
+        
+        case .notificationOptions:
+            fatalError("Not supported handler")
+        }
+        
     }
 }
