@@ -12,10 +12,11 @@ and the Flutter guide for
 -->
 
 # get_permission
-Flutter package for permission handling
+Flutter plugin for permissions handling.
 
 ## Features
-- [ ] get async/sync statuses of permissions
+- [x] get statuses of permissions
+- [x] request single/multipe permissions
 - [ ] handle permissions on iOS
 - [ ] handle permissions on Android
 
