@@ -57,6 +57,7 @@ extension StatusParser on Status {
       Status.restrictedIOS,
       Status.limitedIOS,
       Status.permanentlyDeniedAndroid,
+      Status.notSupported
     ][value];
   }
 }

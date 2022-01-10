@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
 import 'package:get_permission/get_permission.dart';
 import 'package:get_permission/permission.dart';
 
@@ -38,13 +37,32 @@ class _MyAppState extends State<MyApp> {
     debugPrint('Camera request permission status $requestCameraStatus');
 
     final requestStatuses =
-        await [Permissions.microphone, Permissions.contacts, Permissions.notification].request();
+        await [Permissions.microphone, Permissions.contacts].request();
     for (var k in requestStatuses.keys) {
       debugPrint('Request permission - $k, status: ${requestStatuses[k]}');
     }
 
-    final statuses =
-        await [Permissions.microphone, Permissions.contacts, Permissions.notification].checkStatuses();
+    final requestNotificationStatuses = await [
+      Permissions.notification,
+      Permissions.notificationOptionAlert,
+      Permissions.notificationOptionBadge,
+      Permissions.notificationOptionSound,
+      Permissions.notificationOptionCarPlay,
+      Permissions.notificationOptionCriticalAlert,
+      Permissions.notificationOptionProvisional,
+      Permissions.notificationOptionAnnouncement,
+      Permissions.notificationOptionTimeSensitive,
+    ].request();
+    for (var k in requestNotificationStatuses.keys) {
+      debugPrint(
+          'Request notification permission - $k, status: ${requestNotificationStatuses[k]}');
+    }
+
+    final statuses = await [
+      Permissions.microphone,
+      Permissions.contacts,
+      Permissions.notification
+    ].checkStatuses();
     for (var k in statuses.keys) {
       debugPrint('Permission - $k, status: ${statuses[k]}');
     }
