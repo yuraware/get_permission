@@ -18,7 +18,23 @@ enum Permissions {
   camera,
   microphone,
   contacts,
+
+  /// The notification permission with options: alert, badge, sound
   notification,
+
+  /// The notification permission with any options
+  notificationOptions,
+  notificationOptionAlert,
+  notificationOptionBadge,
+  notificationOptionSound,
+  notificationOptionCarPlay,
+
+  /// To use Critical Alert permission the app should have
+  /// a granted entitlement by Apple: com.apple.developer.usernotifications.critical-alerts
+  notificationOptionCriticalAlert,
+  notificationOptionProvisional,
+  notificationOptionAnnouncement,
+  notificationOptionTimeSensitive,
   calendar,
   location,
   locationWhenInUse,
@@ -48,12 +64,24 @@ enum Permissions {
   unknown,
 }
 
+enum NotificationOption {
+  alert,
+  badge,
+  sound,
+  carPlay,
+  criticalAlert,
+  provisional,
+  announcement,
+  timeSensitive,
+}
+
 enum Status {
   denied,
   authorized,
   restrictedIOS,
   limitedIOS,
   permanentlyDeniedAndroid,
+  notSupported, // In case of OS version does not supports permission
 }
 
 enum Availability {
