@@ -6,9 +6,13 @@ import 'package:get_permission/permission.dart';
 class _GetPermission extends PermissionHandler {
   static const MethodChannel _channel = MethodChannel('get_permission');
 
-  static Future<Status> checkStatus(Permissions permission) async {
-    final status =
-        await _channel.invokeMethod('checkPermission', permission.index);
+  static Future<Status> checkStatus(
+      Permissions permission, List<int>? additional) async {
+    List<int> params = [permission.index];
+    if (additional != null) {
+      params.addAll(additional);
+    }
+    final status = await _channel.invokeMethod('checkPermission', params);
     return StatusParser.statusFrom(status);
   }
 
@@ -18,9 +22,13 @@ class _GetPermission extends PermissionHandler {
     return AvailabilityParser.statusFrom(status);
   }
 
-  static Future<Status> request(Permissions permission) async {
-    final status =
-        await _channel.invokeMethod('requestPermission', permission.index);
+  static Future<Status> request(
+      Permissions permission, List<int>? additional) async {
+    List<int> params = [permission.index];
+    if (additional != null) {
+      params.addAll(additional);
+    }
+    final status = await _channel.invokeMethod('requestPermission', params);
     return StatusParser.statusFrom(status);
   }
 
@@ -78,7 +86,7 @@ extension GetPermissionHandler on Permissions {
   /// Request a single permission
   ///
   Future<Status> request(Permissions permission) async {
-    return _GetPermission.request(permission);
+    return _GetPermission.request(permission, null);
   }
 }
 

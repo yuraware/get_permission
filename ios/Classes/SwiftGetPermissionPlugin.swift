@@ -37,22 +37,35 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
     }
     
     private func getPermission(from call: FlutterMethodCall, result: @escaping FlutterResult) {
-        guard let permission = call.arguments as? Int,
-              let type = PermissionType(rawValue: permission) else {
-                  print("Integer argument should be passed to the plugin")
-                  return;
-        }
+       
         
         switch (call.method) {
         case Methods.checkPermission.rawValue:
+            guard let permissionParams = call.arguments as? [Int], let firstValue = permissionParams.first,
+                  let type = PermissionType(rawValue: firstValue) else {
+                print("Integers array argument should be passed to the plugin")
+                return;
+            }
+            
             checkPermission(type: type) { status in
                 result(status)
             }
         case Methods.checkAvailability.rawValue:
+            guard let permission = call.arguments as? Int,
+                  let type = PermissionType(rawValue: permission) else {
+                      print("Integer argument should be passed to the plugin")
+                      return;
+            }
             checkAvailability(type: type) { availability in
                 result(availability)
             }
         case Methods.requestPermission.rawValue:
+            guard let permissionParams = call.arguments as? [Int], let firstValue = permissionParams.first,
+                  let type = PermissionType(rawValue: firstValue) else {
+                print("Integers array argument should be passed to the plugin")
+                return;
+            }
+            
             request(type: type) { status in
                 result(status)
             }
