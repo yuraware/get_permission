@@ -73,20 +73,45 @@ extension StatusParser on Status {
 extension GetPermissionHandler on Permissions {
   /// Check permission status
   ///
-  Future<Status> checkStatus(Permissions permission) async {
-    return _GetPermission.checkStatus(permission);
+  Future<Status> checkStatus() async {
+    return _GetPermission.checkStatus(this, null);
+  }
+
+  /// Check permission status with multiple options
+  ///
+  Future<Status> checkStatusWithOptions(
+      Permissions permission, List<PermissionOption>? options) async {
+    throw Exception("Not implemented");
+    //TODO: add checking permission statuses
+    if (permission != Permissions.notificationOptions) {
+      throw ArgumentError(
+          'Check status of permission with multiple options is only available for Permissions.notificationOptions');
+    }
+    final permissionOptions = options?.map((option) => option.value).toList();
+    return _GetPermission.checkStatus(permission, permissionOptions);
   }
 
   /// Check permission availability on the platform
   ///
-  Future<Availability> checkAvailability(Permissions permission) async {
-    return _GetPermission.checkAvailability(permission);
+  Future<Availability> checkAvailability() async {
+    return _GetPermission.checkAvailability(this);
   }
 
-  /// Request a single permission
+  /// Request a permission
   ///
-  Future<Status> request(Permissions permission) async {
-    return _GetPermission.request(permission, null);
+  Future<Status> request() async {
+    return _GetPermission.request(this, null);
+  }
+
+  /// Request a permission with multiple options
+  ///
+  Future<Status> requestWithOptions(List<PermissionOption>? options) async {
+    if (this != Permissions.notificationOptions) {
+      throw ArgumentError(
+          'Request permission with multiple options is only available for Permissions.notificationOptions');
+    }
+    final permissionOptions = options?.map((option) => option.value).toList();
+    return _GetPermission.request(this, permissionOptions);
   }
 }
 

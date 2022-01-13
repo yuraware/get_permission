@@ -24,16 +24,13 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    final cameraStatus =
-        await Permissions.camera.checkStatus(Permissions.camera);
+    final cameraStatus = await Permissions.camera.checkStatus();
     debugPrint('Camera permission status $cameraStatus');
 
-    final cameraAvailability =
-        await Permissions.camera.checkAvailability(Permissions.camera);
+    final cameraAvailability = await Permissions.camera.checkAvailability();
     debugPrint('Camera permission availability status $cameraAvailability');
 
-    final requestCameraStatus =
-        await Permissions.camera.request(Permissions.camera);
+    final requestCameraStatus = await Permissions.camera.request();
     debugPrint('Camera request permission status $requestCameraStatus');
 
     final requestStatuses =
@@ -42,6 +39,18 @@ class _MyAppState extends State<MyApp> {
       debugPrint('Request permission - $k, status: ${requestStatuses[k]}');
     }
 
+    final requestNotificationWithOptions =
+        await Permissions.notificationOptions.requestWithOptions([
+      PermissionOption.notificationOptionAlert,
+      PermissionOption.notificationOptionBadge,
+      PermissionOption.notificationOptionSound,
+//      PermissionOption.notificationOptionCriticalAlert,
+    ]);
+
+    debugPrint(
+        'Notification with options request permission status: $requestNotificationWithOptions');
+
+/*
     final requestNotificationStatuses = await [
       Permissions.notification,
       Permissions.notificationOptionAlert,
@@ -57,6 +66,7 @@ class _MyAppState extends State<MyApp> {
       debugPrint(
           'Request notification permission - $k, status: ${requestNotificationStatuses[k]}');
     }
+    */
 
     final statuses = await [
       Permissions.microphone,

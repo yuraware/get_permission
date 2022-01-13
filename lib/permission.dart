@@ -64,6 +64,26 @@ enum Permissions {
   unknown,
 }
 
+class PermissionOption {
+  final int value;
+  PermissionOption(this.value);
+
+  static final notificationOptionAlert =
+      PermissionOption(NotificationOption.alert.index);
+  static final notificationOptionBadge =
+      PermissionOption(NotificationOption.badge.index);
+  static final notificationOptionSound =
+      PermissionOption(NotificationOption.sound.index);
+  static final notificationOptionCarPlay =
+      PermissionOption(NotificationOption.carPlay.index);
+  static final notificationOptionCriticalAlert =
+      PermissionOption(NotificationOption.criticalAlert.index);
+  static final notificationOptionAnnouncement =
+      PermissionOption(NotificationOption.announcement.index);
+  static final notificationOptionTimeSensitive =
+      PermissionOption(NotificationOption.timeSensitive.index);
+}
+
 enum NotificationOption {
   alert,
   badge,
