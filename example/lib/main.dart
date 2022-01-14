@@ -44,13 +44,12 @@ class _MyAppState extends State<MyApp> {
       PermissionOption.notificationOptionAlert,
       PermissionOption.notificationOptionBadge,
       PermissionOption.notificationOptionSound,
-//      PermissionOption.notificationOptionCriticalAlert,
+      PermissionOption.notificationOptionCriticalAlert,
     ]);
 
     debugPrint(
         'Notification with options request permission status: $requestNotificationWithOptions');
 
-/*
     final requestNotificationStatuses = await [
       Permissions.notification,
       Permissions.notificationOptionAlert,
@@ -66,7 +65,6 @@ class _MyAppState extends State<MyApp> {
       debugPrint(
           'Request notification permission - $k, status: ${requestNotificationStatuses[k]}');
     }
-    */
 
     final statuses = await [
       Permissions.microphone,

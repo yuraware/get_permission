@@ -81,8 +81,6 @@ extension GetPermissionHandler on Permissions {
   ///
   Future<Status> checkStatusWithOptions(
       Permissions permission, List<PermissionOption>? options) async {
-    throw Exception("Not implemented");
-    //TODO: add checking permission statuses
     if (permission != Permissions.notificationOptions) {
       throw ArgumentError(
           'Check status of permission with multiple options is only available for Permissions.notificationOptions');
