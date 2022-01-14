@@ -12,7 +12,7 @@ and the Flutter guide for
 -->
 
 # get_permission
-Flutter plugin for permissions handling.
+Flutter plugin for permissions handling on iOS and Android.
 
 ## Features
 - [x] get statuses of permissions
