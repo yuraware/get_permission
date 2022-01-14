@@ -13,7 +13,8 @@ import Contacts
 // to your app’s Info.plist file
 //
 class ContactsHandler: HandlerProtocol {
-    func checkStatus(_ type: PermissionType) -> PermissionStatus {
+    
+    func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus {
         return status()
     }
     
@@ -21,8 +22,8 @@ class ContactsHandler: HandlerProtocol {
          completion(PermissionAvailability.nonApplicable)
     }
     
-    func request(_ type: PermissionType, completion: @escaping (PermissionStatus) -> ()) {
-        let status = checkStatus(type)
+    func request(_ type: PermissionType, options: [Int]?, completion: @escaping (PermissionStatus) -> ()) {
+        let status = checkStatus(type, options: options)
         guard status == .denied else {
             completion(status)
             return

@@ -12,7 +12,8 @@ import UserNotifications
 // Checks notifications status for options: alert, sound, badge
 //
 class NotificationsHandler: HandlerProtocol {
-    func checkStatus(_ type: PermissionType) -> PermissionStatus {
+    
+    func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus {
         return status()
     }
     
@@ -20,8 +21,8 @@ class NotificationsHandler: HandlerProtocol {
          completion(PermissionAvailability.nonApplicable)
     }
     
-    func request(_ type: PermissionType, completion: @escaping (PermissionStatus) -> ()) {
-        let status = checkStatus(type)
+    func request(_ type: PermissionType, options: [Int]?, completion: @escaping (PermissionStatus) -> ()) {
+        let status = checkStatus(type, options: options)
         guard status == .denied else {
             completion(status)
             return

@@ -23,6 +23,17 @@ enum PermissionType: Int {
     case notificationOptionTimeSensitive
 }
 
+enum NotificationOption: Int {
+    case alert
+    case badge
+    case sound
+    case carPlay
+    case criticalAlert
+    case provisional
+    case announcement
+    case timeSensitive
+}
+
 enum PermissionStatus: Int {
     case denied = 0
     case authorized

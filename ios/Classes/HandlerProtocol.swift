@@ -8,7 +8,7 @@
 import Foundation
 
 protocol HandlerProtocol {
-    func checkStatus(_ type: PermissionType) -> PermissionStatus
+    func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus
     func checkAvailability(_ type: PermissionType, completion: (PermissionAvailability) -> ())
-    func request(_ type: PermissionType, completion: @escaping (PermissionStatus) -> ())
+    func request(_ type: PermissionType, options: [Int]?, completion: @escaping (PermissionStatus) -> ())
 }

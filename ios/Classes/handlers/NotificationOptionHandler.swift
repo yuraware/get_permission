@@ -7,35 +7,35 @@
 
 import Foundation
 
-// Checks notification authorization for options: badge, sound, alert,
+// Checks notification authorization with single option: badge, sound, alert,
 // carPlay, criticalAlert, providesAppNotificationSettings,
 // provisional, announcement (deprecated), timeSensitive (deprecated)
 //
 class NotificationOptionHandler: HandlerProtocol {
     
-    let options: UNAuthorizationOptions
+    let option: UNAuthorizationOptions
     
-    init(options: UNAuthorizationOptions) {
-        self.options = options
+    init(option: UNAuthorizationOptions) {
+        self.option = option
     }
     
-    func checkStatus(_ type: PermissionType) -> PermissionStatus {
-        return status()
+    func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus {
+        return NotificationOptionHandler.status(option: self.option)
     }
     
     func checkAvailability(_ type: PermissionType, completion: (PermissionAvailability) -> ()) {
          completion(PermissionAvailability.nonApplicable)
     }
     
-    func request(_ type: PermissionType, completion: @escaping (PermissionStatus) -> ()) {
-        let status = checkStatus(type)
+    func request(_ type: PermissionType, options: [Int]?, completion: @escaping (PermissionStatus) -> ()) {
+        let status = checkStatus(type, options: options)
         guard status != .denied else {
             completion(status)
             return
         }
         
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: options) { granted, error in
+        center.requestAuthorization(options: option) { granted, error in
             if error != nil {
                 completion(.denied)
             }
@@ -44,7 +44,7 @@ class NotificationOptionHandler: HandlerProtocol {
         }
     }
     
-    func status() -> PermissionStatus {
+    static func status(option: UNAuthorizationOptions) -> PermissionStatus {
         let semaphore = DispatchSemaphore(value: 0)
         var status = PermissionStatus.denied
         let userNotificationCenter = UNUserNotificationCenter.current()
@@ -52,25 +52,25 @@ class NotificationOptionHandler: HandlerProtocol {
             
             var setting: UNNotificationSetting?
             
-            if self.options == .badge {
+            if option == .badge {
                 setting = notificationSettings.badgeSetting
             }
-            if self.options == .sound {
+            if option == .sound {
                 setting = notificationSettings.soundSetting
             }
-            if self.options == .alert {
+            if option == .alert {
                 setting = notificationSettings.alertSetting
             }
-            if self.options == .carPlay {
+            if option == .carPlay {
                 setting = notificationSettings.carPlaySetting
             }
-            if #available(iOS 12.0, *), self.options == .criticalAlert {
+            if #available(iOS 12.0, *), option == .criticalAlert {
                 setting = notificationSettings.criticalAlertSetting
             }
-            if #available(iOS 13.0, *), self.options == .announcement {
+            if #available(iOS 13.0, *), option == .announcement {
                 setting = notificationSettings.announcementSetting
             }
-            if #available(iOS 15.0, *), self.options == .timeSensitive {
+            if #available(iOS 15.0, *), option == .timeSensitive {
                 setting = notificationSettings.timeSensitiveSetting
             }
             //TODO: handle providesAppNotificationSettings

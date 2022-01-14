@@ -8,11 +8,12 @@
 import Foundation
 import UserNotifications
 
-//
+// Handles not supported notification type
 //
 //
 class NotificationNotSupportedHandler: HandlerProtocol {
-    func checkStatus(_ type: PermissionType) -> PermissionStatus {
+    
+    func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus {
         return .notSupported
     }
     
@@ -20,7 +21,7 @@ class NotificationNotSupportedHandler: HandlerProtocol {
         completion(PermissionAvailability.nonApplicable)
     }
     
-    func request(_ type: PermissionType, completion: @escaping (PermissionStatus) -> ()) {
+    func request(_ type: PermissionType, options: [Int]?, completion: @escaping (PermissionStatus) -> ()) {
         completion(.notSupported)
     }
 }
