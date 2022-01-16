@@ -46,8 +46,12 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
                 print("Integers array argument should be passed to the plugin")
                 return;
             }
+            var params = permissionParams
+            if (permissionParams.count > 1) {
+                params = Array(permissionParams[1...permissionParams.count])
+            }
             
-            checkPermission(type: type) { status in
+            checkPermission(type: type, options: params) { status in
                 result(status)
             }
         case Methods.checkAvailability.rawValue:
@@ -66,7 +70,12 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
                 return;
             }
             
-            request(type: type) { status in
+            var params = permissionParams
+            if (permissionParams.count > 1) {
+                params = Array(permissionParams[1...permissionParams.count-1])
+            }
+            
+            request(type: type, options: params) { status in
                 result(status)
             }
         default:
@@ -87,7 +96,7 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             var results = [Int: Int]()
             for permissionType in permissions {
                 let handler = handler(for: permissionType)
-                handler.request(permissionType) { status in
+                handler.request(permissionType, options: nil) { status in
                     results[permissionType.rawValue] = status.rawValue
                     if results.values.count == permissions.count {
                         result(results)
@@ -98,7 +107,7 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             var results = [Int: Int]()
             for permissionType in permissions {
                 let handler = handler(for: permissionType)
-                results[permissionType.rawValue] = handler.checkStatus(permissionType).rawValue
+                results[permissionType.rawValue] = handler.checkStatus(permissionType, options: nil).rawValue
                 if results.values.count == permissions.count {
                     result(results)
                 }
@@ -108,15 +117,15 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
         }
     }
 
-    private func request(type: PermissionType, result: @escaping FlutterResult) {
+    private func request(type: PermissionType, options: [Int]? = nil, result: @escaping FlutterResult) {
         let handler = handler(for: type)
-        handler.request(type) { status in
+        handler.request(type, options: options) { status in
             result(status.rawValue)
         }
     }
 
-    private func checkPermission(type: PermissionType, result: FlutterResult) {
-        result(handler(for: type).checkStatus(type).rawValue)
+    private func checkPermission(type: PermissionType, options: [Int]? = nil, result: FlutterResult) {
+        result(handler(for: type).checkStatus(type, options: options).rawValue)
     }
 
     private func checkAvailability(type: PermissionType, result: FlutterResult) {
@@ -136,55 +145,55 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return NotificationsHandler()
         case .notificationOptionAlert:
             if #available(iOS 10.0, *) {
-                return NotificationOptionHandler(options: .alert)
+                return NotificationOptionHandler(option: .alert)
             } else {
                 return NotificationNotSupportedHandler()
             }
         case .notificationOptionBadge:
             if #available(iOS 10.0, *) {
-                return NotificationOptionHandler(options: .badge)
+                return NotificationOptionHandler(option: .badge)
             } else {
                 return NotificationNotSupportedHandler()
         }
         case .notificationOptionSound:
             if #available(iOS 10.0, *) {
-                return NotificationOptionHandler(options: .sound)
+                return NotificationOptionHandler(option: .sound)
             } else {
                 return NotificationNotSupportedHandler()
         }
         case .notificationOptionCarPlay:
             if #available(iOS 10.0, *) {
-                return NotificationOptionHandler(options: .carPlay)
+                return NotificationOptionHandler(option: .carPlay)
             } else {
                 return NotificationNotSupportedHandler()
         }
         case .notificationOptionCriticalAlert:
             if #available(iOS 12.0, *) {
-                return NotificationOptionHandler(options: .criticalAlert)
+                return NotificationOptionHandler(option: .criticalAlert)
             } else {
                 return NotificationNotSupportedHandler()
         }
         case .notificationOptionProvisional:
             if #available(iOS 12.0, *) {
-                return NotificationOptionHandler(options: .provisional)
+                return NotificationOptionHandler(option: .provisional)
             } else {
                 return NotificationNotSupportedHandler()
         }
         case .notificationOptionAnnouncement:
             if #available(iOS 13.0, *) {
-                return NotificationOptionHandler(options: .announcement)
+                return NotificationOptionHandler(option: .announcement)
             } else {
                 return NotificationNotSupportedHandler()
         }
         case .notificationOptionTimeSensitive:
             if #available(iOS 15.0, *) {
-                return NotificationOptionHandler(options: .timeSensitive)
+                return NotificationOptionHandler(option: .timeSensitive)
             } else {
                 return NotificationNotSupportedHandler()
         }
         
         case .notificationOptions:
-            fatalError("Not supported handler")
+            return NotificationCustomOptionHandler()
         }
         
     }
