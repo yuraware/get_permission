@@ -28,6 +28,12 @@
 	<string>Contacts usage description</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Microphone usage description</string>
+	<key>NSUserTrackingUsageDescription</key>
+	<string>App tracking transparency usage description</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Calendars usage description</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Reminders usage description</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

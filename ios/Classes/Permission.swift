@@ -21,6 +21,9 @@ enum PermissionType: Int {
     case notificationOptionProvisional
     case notificationOptionAnnouncement
     case notificationOptionTimeSensitive
+    case appTrackingTransparency
+    case calendar
+    case reminder
 }
 
 enum NotificationOption: Int {

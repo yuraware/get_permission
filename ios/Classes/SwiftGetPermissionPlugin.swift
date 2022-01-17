@@ -37,7 +37,6 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
     }
     
     private func getPermission(from call: FlutterMethodCall, result: @escaping FlutterResult) {
-       
         
         switch (call.method) {
         case Methods.checkPermission.rawValue:
@@ -191,9 +190,12 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             } else {
                 return NotificationNotSupportedHandler()
         }
-        
         case .notificationOptions:
             return NotificationCustomOptionHandler()
+        case .appTrackingTransparency:
+            return AppTrackingTransparencyHandler()
+        case .calendar, .reminder:
+            return EventHandler()
         }
         
     }
