@@ -36,8 +36,10 @@ enum Permissions {
   notificationOptionAnnouncement,
   notificationOptionTimeSensitive,
   appTrackingTransparencyIOS,
+
   calendar,
   reminderIOS,
+
   location,
   locationWhenInUse,
   locationAlways,
