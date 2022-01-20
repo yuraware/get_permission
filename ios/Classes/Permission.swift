@@ -24,6 +24,7 @@ enum PermissionType: Int {
     case appTrackingTransparency
     case calendar
     case reminder
+    case speech
 }
 
 enum NotificationOption: Int {

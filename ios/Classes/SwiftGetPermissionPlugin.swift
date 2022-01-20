@@ -196,6 +196,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return AppTrackingTransparencyHandler()
         case .calendar, .reminder:
             return EventHandler()
+        case .speech:
+            return SpeechHandler()
         }
         
     }

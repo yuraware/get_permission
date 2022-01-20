@@ -40,6 +40,8 @@ enum Permissions {
   calendar,
   reminderIOS,
 
+  speech,
+
   location,
   locationWhenInUse,
   locationAlways,
@@ -49,7 +51,6 @@ enum Permissions {
   photosWriteOnlyIOS,
   sensors,
   smsAndroid,
-  speech,
   storage,
   ignoreBatteryOptimizationsAndroid,
   mediaLocation,
