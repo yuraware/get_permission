@@ -78,10 +78,11 @@ class _MyAppState extends State<MyApp> {
     final eventStatuses = await [
       Permissions.calendar,
       Permissions.reminderIOS,
-    ].checkStatuses();
+      Permissions.speech,
+    ].request();
     for (var k in statuses.keys) {
       debugPrint(
-          'Check event permission status - $k, status: ${eventStatuses[k]}');
+          'Request event permission status - $k, status: ${eventStatuses[k]}');
     }
 
     // If the widget was removed from the tree while the asynchronous platform
