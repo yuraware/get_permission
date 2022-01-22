@@ -42,6 +42,7 @@ enum Permissions {
 
   speech,
 
+
   location,
   locationWhenInUse,
   locationAlways,
@@ -59,7 +60,6 @@ enum Permissions {
   manageExternalStorageAndroid,
   systemAlertWindowAndroid,
   requestInstallPackageAndroid,
-  criticalAlertsIOS,
   accessNotificationPolicyAndroid,
   bluetoothScanAndroid,
   bluetoothAdvertiseAndroid,
