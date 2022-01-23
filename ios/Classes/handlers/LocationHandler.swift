@@ -8,7 +8,14 @@
 import Foundation
 import CoreLocation
 
-class LocationHandler: HandlerProtocol {
+class LocationHandler: NSObject, HandlerProtocol {
+    
+    let locationManager = CLLocationManager()
+    
+    override init() {
+        super.init()
+        locationManager.delegate = self
+    }
     
     func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus {
         return CLLocationManager.locationServicesEnabled() ? .authorized : .denied
@@ -26,7 +33,14 @@ class LocationHandler: HandlerProtocol {
             return
         }
         
-        //TODO
+        switch type {
+        case .locationWhenInUse:
+            locationManager.requestWhenInUseAuthorization()
+        case .locationAlways:
+            locationManager.requestAlwaysAuthorization()
+        default:
+            fatalError("Not supported permission type")
+        }        
     }
 
     func permissionStatus(from authStatus: CLAuthorizationStatus) -> PermissionStatus {
@@ -45,4 +59,8 @@ class LocationHandler: HandlerProtocol {
             fatalError("Not supported status in ATTrackingManager.AuthorizationStatus")
         }
     }
+}
+
+extension LocationHandler: CLLocationManagerDelegate {
+    
 }

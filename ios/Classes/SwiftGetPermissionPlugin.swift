@@ -198,6 +198,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return EventHandler()
         case .speech:
             return SpeechHandler()
+        case .locationAlways, .locationWhenInUse:
+            return LocationHandler()
         }
         
     }

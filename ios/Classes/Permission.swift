@@ -25,6 +25,8 @@ enum PermissionType: Int {
     case calendar
     case reminder
     case speech
+    case locationAlways
+    case locationWhenInUse
 }
 
 enum NotificationOption: Int {
