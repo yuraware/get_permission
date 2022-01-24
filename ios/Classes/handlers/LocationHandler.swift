@@ -12,6 +12,8 @@ class LocationHandler: NSObject, HandlerProtocol {
     
     let locationManager = CLLocationManager()
     
+    private var requestCompletion: ((PermissionStatus) -> ())?
+    
     override init() {
         super.init()
         locationManager.delegate = self
@@ -33,6 +35,7 @@ class LocationHandler: NSObject, HandlerProtocol {
             return
         }
         
+        requestCompletion = completion
         switch type {
         case .locationWhenInUse:
             locationManager.requestWhenInUseAuthorization()
@@ -62,5 +65,8 @@ class LocationHandler: NSObject, HandlerProtocol {
 }
 
 extension LocationHandler: CLLocationManagerDelegate {
-    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        requestCompletion?(permissionStatus(from: status))
+    }
 }

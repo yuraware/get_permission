@@ -42,10 +42,9 @@ enum Permissions {
 
   speech,
 
-
-  location,
-  locationWhenInUse,
   locationAlways,
+  locationWhenInUse,
+
   mediaLibrary,
   phoneAndroid,
   photos,
