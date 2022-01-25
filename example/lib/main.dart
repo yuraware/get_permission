@@ -85,6 +85,15 @@ class _MyAppState extends State<MyApp> {
           'Request event permission status - $k, status: ${eventStatuses[k]}');
     }
 
+    final locationStatuses = await [
+      Permissions.locationAlways,
+      Permissions.locationWhenInUse,
+    ].request();
+    for (var k in statuses.keys) {
+      debugPrint(
+          'Request location permission status - $k, status: ${locationStatuses[k]}');
+    }
+
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.

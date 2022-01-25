@@ -8,9 +8,17 @@
 import Foundation
 import CoreLocation
 
+// Use a reference https://developer.apple.com/documentation/eventkit/accessing_the_event_store
+// Remember to add the NSLocationWhenInUseUsageDescription,
+// NSLocationAlwaysAndWhenInUseUsageDescription,
+// NSLocationUsageDescription (MacOS not supported),
+// NSLocationAlwaysUsageDescription
+// to your app’s Info.plist file
+//
 class LocationHandler: NSObject, HandlerProtocol {
     
-    let locationManager = CLLocationManager()
+    private let locationManager = CLLocationManager()
+    private var permissionType: PermissionType?
     
     private var requestCompletion: ((PermissionStatus) -> ())?
     
@@ -35,6 +43,8 @@ class LocationHandler: NSObject, HandlerProtocol {
             return
         }
         
+        permissionType = type
+        
         requestCompletion = completion
         switch type {
         case .locationWhenInUse:
@@ -55,9 +65,9 @@ class LocationHandler: NSObject, HandlerProtocol {
         case .denied, .notDetermined:
             return .denied
         case .authorizedAlways:
-            return .authorized
+            return permissionType == .locationAlways ? .authorized : .denied
         case .authorizedWhenInUse:
-            return .authorized
+            return permissionType == .locationWhenInUse ? .authorized : .denied
         @unknown default:
             fatalError("Not supported status in ATTrackingManager.AuthorizationStatus")
         }
