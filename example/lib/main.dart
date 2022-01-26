@@ -78,12 +78,14 @@ class _MyAppState extends State<MyApp> {
     final eventStatuses = await [
       Permissions.calendar,
       Permissions.reminderIOS,
-      Permissions.speech,
     ].request();
     for (var k in statuses.keys) {
       debugPrint(
           'Request event permission status - $k, status: ${eventStatuses[k]}');
     }
+
+    final requestSpeechStatus = await Permissions.speech.request();
+    debugPrint('Speech request permission status $requestSpeechStatus');
 
     final locationStatuses = await [
       Permissions.locationAlways,
