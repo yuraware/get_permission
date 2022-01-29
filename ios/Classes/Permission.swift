@@ -27,6 +27,8 @@ enum PermissionType: Int {
     case speech
     case locationAlways
     case locationWhenInUse
+    case photos
+    case photosWriteOnlyIOS
 }
 
 enum NotificationOption: Int {

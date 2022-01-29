@@ -45,10 +45,13 @@ enum Permissions {
   locationAlways,
   locationWhenInUse,
 
-  mediaLibrary,
-  phoneAndroid,
   photos,
   photosWriteOnlyIOS,
+
+  mediaLibrary,
+
+  phoneAndroid,
+
   sensors,
   smsAndroid,
   storage,

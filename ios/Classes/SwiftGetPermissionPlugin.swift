@@ -200,6 +200,10 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return SpeechHandler()
         case .locationAlways, .locationWhenInUse:
             return LocationHandler()
+        case .photos:
+            return PhotoHandler(writeOnly: false)
+        case .photosWriteOnlyIOS:
+            return PhotoHandler(writeOnly: true)
         }
         
     }
