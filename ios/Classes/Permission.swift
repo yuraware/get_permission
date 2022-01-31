@@ -29,6 +29,7 @@ enum PermissionType: Int {
     case locationWhenInUse
     case photos
     case photosWriteOnlyIOS
+    case mediaLibrary
 }
 
 enum NotificationOption: Int {
