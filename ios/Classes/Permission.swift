@@ -30,6 +30,7 @@ enum PermissionType: Int {
     case photos
     case photosWriteOnlyIOS
     case mediaLibrary
+    case phone
 }
 
 enum NotificationOption: Int {

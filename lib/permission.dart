@@ -50,7 +50,7 @@ enum Permissions {
 
   mediaLibrary,
 
-  phoneAndroid,
+  phone,
 
   sensors,
   smsAndroid,

@@ -206,6 +206,8 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return PhotoHandler(writeOnly: true)
         case .mediaLibrary:
             return MediaLibraryHandler()
+        case .phone:
+            return PhoneHandler()
         }
         
     }
