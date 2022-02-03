@@ -109,6 +109,9 @@ class _MyAppState extends State<MyApp> {
     debugPrint(
         'Request media library permission status: $requestMediaLibraryStatus');
 
+    final checkPhone = await Permissions.phone.checkAvailability();
+    debugPrint('Phone permission availability status $checkPhone');
+
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
