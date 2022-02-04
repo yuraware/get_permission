@@ -8,6 +8,8 @@
 import Foundation
 import MediaPlayer
 // Use a reference https://developer.apple.com/documentation/mediaplayer/mpmedialibrary/1621276-requestauthorization
+// Remember to add the NSAppleMusicUsageDescription
+// to your app’s Info.plist file
 //
 class MediaLibraryHandler: HandlerProtocol {
     
