@@ -146,49 +146,49 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             if #available(iOS 10.0, *) {
                 return NotificationOptionHandler(option: .alert)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
             }
         case .notificationOptionBadge:
             if #available(iOS 10.0, *) {
                 return NotificationOptionHandler(option: .badge)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptionSound:
             if #available(iOS 10.0, *) {
                 return NotificationOptionHandler(option: .sound)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptionCarPlay:
             if #available(iOS 10.0, *) {
                 return NotificationOptionHandler(option: .carPlay)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptionCriticalAlert:
             if #available(iOS 12.0, *) {
                 return NotificationOptionHandler(option: .criticalAlert)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptionProvisional:
             if #available(iOS 12.0, *) {
                 return NotificationOptionHandler(option: .provisional)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptionAnnouncement:
             if #available(iOS 13.0, *) {
                 return NotificationOptionHandler(option: .announcement)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptionTimeSensitive:
             if #available(iOS 15.0, *) {
                 return NotificationOptionHandler(option: .timeSensitive)
             } else {
-                return NotificationNotSupportedHandler()
+                return PermissionNotSupportedHandler()
         }
         case .notificationOptions:
             return NotificationCustomOptionHandler()
@@ -208,6 +208,12 @@ public class SwiftGetPermissionPlugin: NSObject, FlutterPlugin {
             return MediaLibraryHandler()
         case .phone:
             return PhoneHandler()
+        case .sensors:
+            if #available(iOS 11.0, *) {
+                return SensorsHandler()
+            } else {
+                return PermissionNotSupportedHandler()
+            }
         }
         
     }

@@ -1,5 +1,5 @@
 //
-//  NotificationNotSupportedHandler.swift
+//  PermissionNotSupportedHandler.swift
 //  get_permission
 //
 //  Created by Yuri on 08.01.2022.
@@ -8,10 +8,10 @@
 import Foundation
 import UserNotifications
 
-// Handles not supported notification type
+// Handles not supported type
 //
 //
-class NotificationNotSupportedHandler: HandlerProtocol {
+class PermissionNotSupportedHandler: HandlerProtocol {
     
     func checkStatus(_ type: PermissionType, options: [Int]?) -> PermissionStatus {
         return .notSupported

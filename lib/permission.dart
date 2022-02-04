@@ -53,6 +53,7 @@ enum Permissions {
   phone,
 
   sensors,
+  
   smsAndroid,
   storage,
   ignoreBatteryOptimizationsAndroid,
