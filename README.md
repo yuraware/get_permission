@@ -44,7 +44,7 @@ if (requestCameraStatus == Status.authorized) { /* Do something */ }
 Requesting multiple permissions:
 ```
 final eventStatuses = await [
-    Permissions.calendar,
+      Permissions.calendar,
       Permissions.reminderIOS,
     ].request();
 for (var k in statuses.keys) {
