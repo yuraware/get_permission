@@ -52,7 +52,7 @@ for (var k in statuses.keys) {
 }
 ```
 
-Check status of a sing permission:
+Check status of a single permission:
 ```
 final cameraStatus = await Permissions.camera.checkStatus();
 if (cameraStatus == Status.authorized) { /* Do something */ }
@@ -75,6 +75,16 @@ Check availability of permission on a phone capability example:
 final checkPhone = await Permissions.phone.checkAvailability();
 ```
 
-## Additional information
+You can request notification permission with any option: *alert, badge, sound, carPlay, criticalAlert, provisional, announcement, timeSensitive*
+```
+    final requestNotificationWithOptions =
+        await Permissions.notificationOptions.requestWithOptions([
+      PermissionOption.notificationOptionAlert,
+      PermissionOption.notificationOptionBadge,
+      PermissionOption.notificationOptionSound,
+      PermissionOption.notificationOptionCriticalAlert,
+    ]);
 
-TODO: Find matching permissions iOS / Android to the Flutter package PermissionType.
+    debugPrint(
+        'Notification with options request permission status: $requestNotificationWithOptions');
+```
