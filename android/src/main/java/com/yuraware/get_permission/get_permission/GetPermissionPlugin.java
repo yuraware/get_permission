@@ -29,6 +29,32 @@ public class GetPermissionPlugin implements FlutterPlugin, MethodCallHandler {
     } else {
       result.notImplemented();
     }
+
+    /*
+
+enum Methods: String, CaseIterable {
+   case checkPermission = "checkPermission"
+   case checkAvailability = "checkAvailability"
+   case requestPermission = "requestPermission"
+   case requestPermissions = "requestPermissions"
+   case checkPermissions = "checkPermissions"
+}
+     */
+
+    switch (call.method) {
+      case "checkPermission":
+        break;
+      case "checkPermissions":
+        break;
+      case "checkAvailability":
+        break;
+      case "requestPermission":
+        break;
+      case "requestPermissions":
+        break;
+      default:
+        throw new RuntimeException("Not implemented");
+    }
   }
 
   @Override
